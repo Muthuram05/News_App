@@ -51,12 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             child: MainCarousel(),
           ),
-          InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> details()));
-            },
-            child: Text("hii"),
-          ),
           ListItem(image: "lib/assets/one.jpg", heading: "Missile Attack in Tirunelveli",),
           ListItem(image: "lib/assets/two.jpg",heading: "Missile Attack in Uvari",),
           ListItem(image: "lib/assets/three.jpg",heading: "Missile Attack in Chennai",),
