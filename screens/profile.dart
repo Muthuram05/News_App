@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/screens.dart';
 import '../widgets/widgets.dart';
 
 class profile extends StatelessWidget {
@@ -32,11 +33,11 @@ class profile extends StatelessWidget {
                         CircleAvatar(
                           maxRadius: 55,
                           minRadius: 55,
-                          backgroundImage: AssetImage("lib/assets/ram.jpg"),
+                          backgroundImage: AssetImage("lib/assets/user1.png"),
                         ),
-                        Text("Muthu Raman",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        Text("muthuram@gmail.com"),
-                      Text("+91 7639490537"),
+                        Text("Unknown User",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                        Text("user@gmail.com"),
+                      Text("+91 9990009999"),
                       ],
                     ),
                   ),
@@ -46,39 +47,31 @@ class profile extends StatelessWidget {
                 height:  MediaQuery.of(context).size.width * 0.08,
               ),
               ListTile(
-                leading: const Icon(Icons.bookmark),
-                title: const Text(' Bookmark '),
+                leading: const Icon(Icons.help),
+                title: const Text(' Help '),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> help()));
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.privacy_tip),
                 title: const Text(' Privacy '),
                 onTap: () {
-                  Navigator.pop(context);
+
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.language),
                 title: const Text(' Language Settings '),
                 onTap: () {
-                  Navigator.pop(context);
+
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text(' Logout '),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              )
+
             ],
           ),
         ),
-        drawer: Navbar(),
-
-
+        drawer: const Navbar(),
     );
   }
 }

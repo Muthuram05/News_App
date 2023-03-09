@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'screens.dart';
 import '../widgets/widgets.dart';
 
 
@@ -20,48 +20,28 @@ class categorises extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-                Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                      InkWell(
+                        onTap:(){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "International",)));
+                        },
+                        child: const categorises_item(
+                          image:"lib/assets/inter.jpg" ,
+                          heading: "International",
+                        ),
+                      ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "Stock",)));
 
-                    Card(
-                      elevation: 5,
-                      child: Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.18,
-                              child: Image.asset("lib/assets/one.jpg",fit: BoxFit.fill,),
-                            ), //Container
-                            Positioned(
-                              bottom: 5,
-                              left: 30,
-                              child: Container(
-                               child: const Text("Hot News",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                              ),
-                            ),
-                          ],
+                      },
+                      child: const categorises_item(
+                        image:"lib/assets/stock.jpg" ,
+                        heading: "Stock",
                       ),
-                    ),
-                    Card(
-                      elevation: 5,
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: MediaQuery.of(context).size.height * 0.18,
-                            child: Image.asset("lib/assets/politics.jpg",fit: BoxFit.fill,),
-                          ), //Container
-                          Positioned(
-                            bottom: 5,
-                            left: 40,
-                            child: Container(
-                              child: Text("politics",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    )
                   ],
                 ),
               SizedBox(
@@ -70,45 +50,25 @@ class categorises extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "Sports",)));
+                    },
+                    child: const categorises_item(
+                      image:"lib/assets/sports.jpg" ,
+                      heading: "Sports",
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "Politics",)));
 
-                  Card(
-                    elevation: 5,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.18,
-                          child: Image.asset("lib/assets/sports.jpg",fit: BoxFit.fill,),
-                        ), //Container
-                        Positioned(
-                          bottom: 5,
-                          left: 40,
-                          child: Container(
-                            child: Text("Sports",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                          ),
-                        ),
-                      ],
+                    },
+                    child: categorises_item(
+                      image:"lib/assets/politics.jpg" ,
+                      heading: "Politics",
                     ),
-                  ),
-                  Card(
-                    elevation: 5,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.18,
-                          child: Image.asset("lib/assets/stock.jpg",fit: BoxFit.fill,),
-                        ), //Container
-                        Positioned(
-                          bottom: 5,
-                          left: 40,
-                          child: Container(
-                            child: Text("Stock",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  )
                 ],
               ),
               SizedBox(
@@ -117,47 +77,30 @@ class categorises extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-
-                  Card(
-                    elevation: 5,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.18,
-                          child: Image.asset("lib/assets/inter.jpg",fit: BoxFit.fill,),
-                        ), //Container
-                        Positioned(
-                          bottom: 5,
-                          left: 10,
-                          child: Container(
-                            child: const Text("International",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                          ),
-                        ),
-                      ],
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "Hot News",)));
+                    },
+                    child: const categorises_item(
+                      image:"lib/assets/one.jpg" ,
+                      heading: "Hot News",
                     ),
                   ),
-                  Card(
-                    elevation: 5,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.18,
-                          child: Image.asset("lib/assets/weather.jpg",fit: BoxFit.fill,),
-                        ), //Container
-                        Positioned(
-                          bottom: 5,
-                          left: 30,
-                          child: Container(
-                            child: Text("Weather",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                          ),
-                        ),
-                      ],
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises_list(title: "Weather",)));
+                    },
+                    child: const categorises_item(
+                      image:"lib/assets/weather.jpg" ,
+                      heading: "Weather",
                     ),
-                  ),
+                  )
                 ],
-              )
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+
             ],
           ),
         ),
