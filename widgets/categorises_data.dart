@@ -1,42 +1,68 @@
 import 'package:flutter/material.dart';
 import 'widgets.dart';
+import '../screens/screens.dart';
 
 class international extends StatelessWidget {
   const international({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-        children: [
-          ListItem(
-            content: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
-            image: "lib/assets/inter.jpg",
-            heading: "Contrary to popular belief",
-            date: "18/06/22",
-            place: "Tiruchirapalli",
-          ),
-          ListItem(
-            content: "There are many variations of Lorem Ipsum available,but the random",
-            image: "lib/assets/inter2.jpg",
-            heading: "There are many variations ",
-            date: "18/06/22",
-            place: "Tirunelveli",
-          ),
-          ListItem(
-            content: "The standard chunk of Lorem Ipsum used since the 1500s Lorem Ipsum ",
-            image: "lib/assets/inter3.jpg",
-            heading: "The standard chunk of Lorem",
-            date: "25/06/22",
-            place: "Salem",
-          ),
-          ListItem(
-            content: "There are many variations of Lorem Ipsum available,but the random",
-            image: "lib/assets/inter4.jpg",
-            heading: "There are many variations",
-            date: "30/06/22",
-            place: "Erode",
-          ),
-        ],
+    return Column(
+          children: [
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                details(image: "lib/assets/inter.jpg", heading: "Contrary to popular belief", content:  ".Contrary to popular belief, Lorem Ipsum is not simply random text,Contrary to popular belief, Lorem Ipsum is not simply random text",)));
+              },
+              child: ListItem(
+                content: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
+                image: "lib/assets/inter.jpg",
+                heading: "Contrary to popular belief",
+                date: "18/06/22",
+                place: "Tiruchirapalli",
+              ),
+            ),
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                    details(image: "lib/assets/inter2.jpg", heading: "There are many variations ", content:  "Contrary to popular belief, Lorem Ipsum is not simply random text,Contrary to popular belief, Lorem Ipsum is not simply random text",)));
+              },
+              child: ListItem(
+                content: "There are many variations of Lorem Ipsum available,but the random",
+                image: "lib/assets/inter2.jpg",
+                heading: "There are many variations ",
+                date: "18/06/22",
+                place: "Tirunelveli",
+              ),
+            ),
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                    details(image: "lib/assets/inter3.jpg", heading: "The standard chunk of Lorem Ipsum used since the 1500s Lorem Ipsum ",content:  ".Contrary to popular belief, Lorem Ipsum is not simply random text,Contrary to popular belief, Lorem Ipsum is not simply random text",)));
+              },
+              child: ListItem(
+                content: "The standard chunk of Lorem Ipsum used since the 1500s Lorem Ipsum ",
+                image: "lib/assets/inter3.jpg",
+                heading: "The standard chunk of Lorem",
+                date: "25/06/22",
+                place: "Salem",
+              ),
+            ),
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                    details(image: "lib/assets/inter4.jpg", heading: "There are many variations of Lorem Ipsum available,but the random", content:  "There are many variations of Lorem Ipsum available,but the random,Lorem Ipsum is not simply random text",)));
+              },
+              child: ListItem(
+                content: "There are many variations of Lorem Ipsum available,but the random",
+                image: "lib/assets/inter4.jpg",
+                heading: "There are many variations",
+                date: "30/06/22",
+                place: "Erode",
+              ),
+            ),
+          ],
+
     );
   }
 }
@@ -46,7 +72,7 @@ class stock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       children: [
         ListItem(
           content: "Contrary to popular belief, Lorem Ipsum is not simply random text",

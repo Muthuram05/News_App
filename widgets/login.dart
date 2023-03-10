@@ -22,47 +22,51 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .2,
-          ),
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: 'Enter Email',
-                hintText: 'Enter Your Email'),
-          ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: 'Enter Password',
-                hintText: 'Enter Your Password'),
-          ),
-          ElevatedButton(
-            onPressed: signIn,child: Text("Sign in"),
-          ),
-          RichText(text: TextSpan(
-            style: TextStyle(color: Colors.red,fontSize: 24),
-            text: 'No account ? ',
+      body:  Padding(
+          padding: const EdgeInsets.only(left:20.0,right: 20.0),
+          child: Column(
             children: [
-              TextSpan(
-                recognizer: TapGestureRecognizer()
-                ..onTap = widget.onClickedSignUp,
-                text: 'Sign Up',
-                style: const TextStyle(
-                  decoration: TextDecoration.underline,
+              SizedBox(
+                height:  MediaQuery.of(context).size.height * .2,
+              ),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Enter Email',
+                    hintText: 'Enter Your Email'),
+              ),
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Enter Password',
+                    hintText: 'Enter Your Password'),
+              ),
+              ElevatedButton(
+                onPressed: signIn,child: Text("Sign in"),
+              ),
+              RichText(text: TextSpan(
+                style: TextStyle(color: Colors.red,fontSize: 18),
+                text: 'No account ? ',
+                children: [
+                  TextSpan(
+                    recognizer: TapGestureRecognizer()
+                    ..onTap = widget.onClickedSignUp,
+                    text: 'Sign Up',
+                    style: const TextStyle(
+                      decoration: TextDecoration.underline,
 
-                )
-              )
-            ]
-          ),
-          ),
+                    )
+                  )
+                ]
+              ),
+              ),
 
-        ],
-      ),
+            ],
+          ),
+        ),
+
     );
   }
   Future signIn() async{

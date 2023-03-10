@@ -30,7 +30,7 @@ class _NavbarState extends State<Navbar> {
               leading: const Icon(Icons.home),
               title: const Text(' Home '),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage()));
               },
             ),
             ListTile(
@@ -40,19 +40,13 @@ class _NavbarState extends State<Navbar> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises()));
               },
             ),
-            InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> categorises()));
-
-              } ,
-              child: ListTile(
+           ListTile(
                 leading: const Icon(Icons.help),
                 title: const Text(' Help '),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> help()));
                 },
               ),
-            ),
             ListTile(
               leading: const Icon(Icons.people),
               title: const Text(' Profile '),

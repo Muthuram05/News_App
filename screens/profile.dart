@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens/screens.dart';
 import '../widgets/widgets.dart';
@@ -53,18 +54,12 @@ class profile extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> help()));
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.privacy_tip),
-                title: const Text(' Privacy '),
-                onTap: () {
 
-                },
-              ),
               ListTile(
-                leading: const Icon(Icons.language),
-                title: const Text(' Language Settings '),
+                leading: const Icon(Icons.logout),
+                title: const Text(' Log Out '),
                 onTap: () {
-
+                  FirebaseAuth.instance.signOut();
                 },
               ),
 

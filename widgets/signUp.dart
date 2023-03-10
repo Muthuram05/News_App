@@ -20,52 +20,54 @@ class _signupState extends State<signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key : formKey,
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .2,
-            ),
-            TextFormField(
-              controller: emailController,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Enter Email',
-                  hintText: 'Enter Your Email'),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (email)=>
-              email != null && !EmailValidator.validate(email) ? 'Enter a valid email' : null,
-            ),
-            TextFormField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Enter Password',
-                  hintText: 'Enter Your Password'),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value)=>
-              value != null &&  value.length < 6  ? 'Enter main 6 characters' : null,
+      body: Padding(
+        padding: const EdgeInsets.only(left:20.0,right: 20.0),
+        child: Form(
+          key : formKey,
+          child: Column(
+              children: [
+                SizedBox(
+                  height:  MediaQuery.of(context).size.height * .2,
+                ),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                      labelText: 'Enter Email',
+                      hintText: 'Enter Your Email'),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email)=>
+                  email != null && !EmailValidator.validate(email) ? 'Enter a valid email' : null,
+                ),
+                TextFormField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                      labelText: 'Enter Password',
+                      hintText: 'Enter Your Password'),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)=>
+                  value != null &&  value.length < 6  ? 'Enter main 6 characters' : null,
 
+                ),
+                ElevatedButton(
+                  onPressed: signUp,child: Text("Sign Up"),
+                ),
+                RichText(text: TextSpan(
+                    text: 'Already Have an account ? ',
+                    style: TextStyle(color: Colors.red,fontSize: 18),
+                    children: [
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.onClickedSignIn,
+                        text: 'Sign In',
+                      )
+                    ]
+                ),
+                )
+              ],
             ),
-            ElevatedButton(
-              onPressed: signUp,child: Text("Sign Up"),
-            ),
-            RichText(text: TextSpan(
-                text: 'Already Have an account ? ',
-                style: TextStyle(color: Colors.red,fontSize: 24),
-                children: [
-                  TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = widget.onClickedSignIn,
-                    text: 'Sign In',
-                  )
-                ]
-            ),
-            )
-          ],
-        ),
+          ),
       ),
+
     );
   }
   Future signUp() async {
