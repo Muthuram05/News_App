@@ -29,7 +29,7 @@ class profile extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.height * 0.22,
-                    child: Column(
+                    child: const Column(
                       children: [
                         CircleAvatar(
                           maxRadius: 55,
@@ -49,20 +49,11 @@ class profile extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.help),
-                title: const Text(' Help '),
+                title: const Text('Help'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> help()));
                 },
               ),
-
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text(' Log Out '),
-                onTap: () {
-                  FirebaseAuth.instance.signOut();
-                },
-              ),
-
             ],
           ),
         ),
