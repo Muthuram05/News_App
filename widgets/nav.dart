@@ -14,9 +14,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   final user = FirebaseAuth.instance.currentUser!;
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -60,8 +58,9 @@ class _NavbarState extends State<Navbar> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text(' Logout '),
-              onTap: (){
-                _signOut;
+              onTap: () async{
+                await FirebaseAuth.instance.signOut();
+                navigatorKey.currentState!.popUntil((route)=>route.isFirst);
               }
             ),
           ],

@@ -6,4 +6,6 @@ export 'bookmark.dart';
 export 'help.dart';
 export 'homepage.dart';
 export 'auth_page.dart';
+export 'privacy.dart';
+export 'edit_profile.dart';
 

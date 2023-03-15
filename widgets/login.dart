@@ -75,9 +75,9 @@ class _loginState extends State<login> {
          builder: (context) => Center(child: CircularProgressIndicator(),)
      );
      try{
-
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(), password: passwordController.text.trim()
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()
       );
      }
      on FirebaseException catch(e){

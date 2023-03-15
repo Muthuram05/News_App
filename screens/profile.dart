@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 import '../screens/screens.dart';
 import '../widgets/widgets.dart';
 
 class profile extends StatelessWidget {
-  const profile({Key? key}) : super(key: key);
+  profile({Key? key}) : super(key: key);
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,15 +32,15 @@ class profile extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.height * 0.22,
-                    child: const Column(
+                    child: Column(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           maxRadius: 55,
                           minRadius: 55,
                           backgroundImage: AssetImage("lib/assets/user1.png"),
                         ),
-                        Text("Unknown User",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        Text("user@gmail.com"),
+                        Text(user.email!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                        Text(user.email!),
                       Text("+91 9990009999"),
                       ],
                     ),
@@ -48,10 +51,27 @@ class profile extends StatelessWidget {
                 height:  MediaQuery.of(context).size.width * 0.08,
               ),
               ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help'),
+                leading: const Icon(Icons.edit),
+                title: const Text('Edit Profile'),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> help()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> edit_profile()));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.privacy_tip),
+                title: const Text('Privacy'),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete),
+                title: const Text('Delete Account'),
+                onTap: () async{
+                  await FirebaseAuth.instance.signOut();
+                  User? user = await FirebaseAuth.instance.currentUser;
+                  user?.delete();
+                  navigatorKey.currentState!.popUntil((route)=>route.isFirst);
                 },
               ),
             ],
@@ -60,6 +80,13 @@ class profile extends StatelessWidget {
         drawer: const Navbar(),
     );
   }
+ Future<User?> readUser() async{
+    final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);
+    final snapshot = await docUser.get();
+    if(snapshot.exists){
+      // return User.fromJson(snapshot.data()!);
+    }
+ }
 }
 
 

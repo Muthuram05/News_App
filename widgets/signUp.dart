@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -81,6 +82,15 @@ class _signupState extends State<signup> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim()
+      );
+      final user = FirebaseAuth.instance.currentUser!;
+      final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);
+      final json = {
+        'name' : "User",
+        'age' : "0000000000"
+      };
+      await docUser.set(
+          json
       );
     }
     on FirebaseException catch (e){
