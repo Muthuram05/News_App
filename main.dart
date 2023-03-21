@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: StreamBuilder<User?>(
+        body: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context,snapshot){
             if(snapshot.connectionState == ConnectionState.waiting){

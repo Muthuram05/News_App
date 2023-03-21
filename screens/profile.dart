@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 import '../screens/screens.dart';
 import '../widgets/widgets.dart';
 
@@ -22,6 +21,36 @@ class profile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              StreamBuilder<List<User>>(
+                stream: readUsers(),
+                builder: (context,snapshot){
+                  if(snapshot.hasError){
+                    return Text("${snapshot.error}");
+                  }
+                  else if(snapshot.hasData){
+                    final users = snapshot.data!;
+                    return ListView(
+                      children: users.map(builduser).toList(),
+                    );
+                  }
+                  else{
+                    return Center(child:  CircularProgressIndicator(),);
+                  }
+                },
+              ),
+              // FutureBuilder<User?>(
+              //   future: readUser(),
+              //   builder: (context,snapshot){
+              //     if(snapshot.hasData){
+              //       final user = snapshot.data;
+              //       return user== null ?
+              //       Center(child: Text("No user"),) : builduser(user!);
+              //     }
+              //     else{
+              //       return Center(child: CircularProgressIndicator(),);
+              //     }
+              //   },
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -64,30 +93,47 @@ class profile extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.delete),
-                title: const Text('Delete Account'),
-                onTap: () async{
-                  await FirebaseAuth.instance.signOut();
-                  User? user = await FirebaseAuth.instance.currentUser;
-                  user?.delete();
-                  navigatorKey.currentState!.popUntil((route)=>route.isFirst);
-                },
-              ),
             ],
           ),
         ),
         drawer: const Navbar(),
     );
   }
- Future<User?> readUser() async{
-    final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);
-    final snapshot = await docUser.get();
-    if(snapshot.exists){
-      // return User.fromJson(snapshot.data()!);
-    }
- }
+  Widget builduser(User user)=> ListTile(
+    title: Text('${user.name}'),
+  );
+  Stream<List<User>> readUsers() => FirebaseFirestore.instance
+      .collection('users')
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+  // Future<User?> readUser() async{
+  //   final docUser = FirebaseFirestore.instance.collection("users").doc("my-id");
+  //   final snapshop = await docUser.get();
+  //   if(snapshop.exists){
+  //     return User.fromJson(snapshop.data()!);
+  //   }
+  // }
 }
+
+class User{
+  final String id;
+  final String name;
+  final String age;
+  User({
+    this.id = '',
+    required this.name,
+    required this.age
+  });
+
+  static User fromJson(Map<String , dynamic > json) =>User(
+    id : json['id'],
+    name: json['name'],
+    age : json['age']
+  );
+}
+
+
+
 
 
 

@@ -50,6 +50,13 @@ class _edit_profileState extends State<edit_profile> {
                     labelText: 'Enter Phone No',
                     hintText: 'Enter Your Number'),
               ),
+              TextField(
+                controller: phoneNo,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Enter Age',
+                    hintText: 'Enter Your Age'),
+              ),
               ElevatedButton(
                   onPressed: (){
                      final Name = name.text;

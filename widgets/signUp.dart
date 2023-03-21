@@ -87,7 +87,8 @@ class _signupState extends State<signup> {
       final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);
       final json = {
         'name' : "User",
-        'age' : "0000000000"
+        'age' : "17",
+        'contact' : "0000000000"
       };
       await docUser.set(
           json
