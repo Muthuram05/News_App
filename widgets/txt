@@ -93,3 +93,32 @@ AspectRatio(
             ),
           ),
         ),
+
+
+  retrive data
+  // StreamBuilder<List<User>>(
+                //   stream: readUsers(),
+                //   builder: (context,snapshot){
+                //     if(snapshot.hasError){
+                //       return Text("${snapshot.error}");
+                //     }
+                //     else if(snapshot.hasData){
+                //       final users = snapshot.data!;
+                //       return ListView(
+                //         children: users.map(builduser).toList(),
+                //       );
+                //     }
+                //     else{
+                //       return Center(child:  CircularProgressIndicator(),);
+                //     }
+                //   },
+                // ),
+
+   // Stream<List<User>> readUsers() => FirebaseFirestore.instance
+    //     .collection('users')
+    //     .snapshots()
+    //     .map((snapshot) => snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+
+
+
+

@@ -14,121 +14,102 @@ class profile extends StatelessWidget {
           centerTitle: true,
           title: Text("Profile"),
         ),
-        body: Padding(
-          padding:  EdgeInsets.all(
-              MediaQuery.of(context).size.width * 0.08
-          ),
+        body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              StreamBuilder<List<User>>(
-                stream: readUsers(),
-                builder: (context,snapshot){
-                  if(snapshot.hasError){
-                    return Text("${snapshot.error}");
-                  }
-                  else if(snapshot.hasData){
-                    final users = snapshot.data!;
-                    return ListView(
-                      children: users.map(builduser).toList(),
-                    );
-                  }
-                  else{
-                    return Center(child:  CircularProgressIndicator(),);
-                  }
-                },
-              ),
-              // FutureBuilder<User?>(
-              //   future: readUser(),
-              //   builder: (context,snapshot){
-              //     if(snapshot.hasData){
-              //       final user = snapshot.data;
-              //       return user== null ?
-              //       Center(child: Text("No user"),) : builduser(user!);
-              //     }
-              //     else{
-              //       return Center(child: CircularProgressIndicator(),);
-              //     }
-              //   },
-              // ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
-              Card(
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.22,
-                    child: Column(
-                      children: [
-                        const CircleAvatar(
-                          maxRadius: 55,
-                          minRadius: 55,
-                          backgroundImage: AssetImage("lib/assets/user1.png"),
-                        ),
-                        Text(user.email!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        Text(user.email!),
-                      Text("+91 9990009999"),
-                      ],
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                  ),
+                    Card(
+                      elevation: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.22,
+                          child: Column(
+                            children: [
+                              const CircleAvatar(
+                                maxRadius: 55,
+                                minRadius: 55,
+                                backgroundImage: AssetImage("lib/assets/user1.png"),
+                              ),
+                              Text(user.email!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                              FutureBuilder<User?>(
+                                future: readUser(),
+                                builder: (context,snapshot){
+                                  if(snapshot.hasData){
+                                    final user = snapshot.data;
+                                    return user== null ?
+                                    Center(child: Text("No user"),) : builduser(user);
+                                  }
+                                  else{
+                                    return Center(child: CircularProgressIndicator(),);
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height:  MediaQuery.of(context).size.width * 0.08,
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.edit),
+                      title: const Text('Edit Profile'),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> edit_profile()));
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.privacy_tip),
+                      title: const Text('Privacy'),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
+                      },
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height:  MediaQuery.of(context).size.width * 0.08,
-              ),
-              ListTile(
-                leading: const Icon(Icons.edit),
-                title: const Text('Edit Profile'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> edit_profile()));
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.privacy_tip),
-                title: const Text('Privacy'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
-                },
-              ),
-            ],
-          ),
         ),
+
         drawer: const Navbar(),
     );
   }
-  Widget builduser(User user)=> ListTile(
-    title: Text('${user.name}'),
-  );
-  Stream<List<User>> readUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .snapshots()
-      .map((snapshot) => snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
-  // Future<User?> readUser() async{
-  //   final docUser = FirebaseFirestore.instance.collection("users").doc("my-id");
-  //   final snapshop = await docUser.get();
-  //   if(snapshop.exists){
-  //     return User.fromJson(snapshop.data()!);
-  //   }
-  // }
+  Widget builduser(User user)=> Column(
+     children: [
+       Text('${user.name}'),
+       Text('${user.contact}')
+     ],
+   );
+
+
+  Future<User?> readUser() async{
+    final docUser = FirebaseFirestore.instance.collection("users").doc(user.uid);
+    final snapshop = await docUser.get();
+    if(snapshop.exists){
+      return User.fromJson(snapshop.data()!);
+    }
+  }
 }
 
 class User{
-  final String id;
+  String id;
   final String name;
   final String age;
+  final String contact;
   User({
     this.id = '',
     required this.name,
-    required this.age
+    required this.age,
+    required this.contact
   });
 
   static User fromJson(Map<String , dynamic > json) =>User(
-    id : json['id'],
-    name: json['name'],
-    age : json['age']
+      age : json['age'],
+      contact: json['contact'],
+      name: json['name'],
   );
 }
 

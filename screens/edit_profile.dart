@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'screens.dart';
 
 class edit_profile extends StatefulWidget {
   const edit_profile({Key? key}) : super(key: key);
-
   @override
   State<edit_profile> createState() => _edit_profileState();
 }
@@ -13,6 +13,7 @@ class _edit_profileState extends State<edit_profile> {
   final name = TextEditingController();
   final phoneNo = TextEditingController();
   final email = TextEditingController();
+  final age = TextEditingController();
   final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class _edit_profileState extends State<edit_profile> {
                     hintText: 'Enter Your Number'),
               ),
               TextField(
-                controller: phoneNo,
+                controller: age,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: 'Enter Age',
@@ -61,7 +62,9 @@ class _edit_profileState extends State<edit_profile> {
                   onPressed: (){
                      final Name = name.text;
                      final PhoneNo = phoneNo.text;
-                     createUser(Name:Name,mobileNo: PhoneNo);
+                     final Age = age.text;
+                     createUser(Name:Name,mobileNo: PhoneNo,Age :Age);
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=> profile()));
                   },
                   child: Text("Submit"))
             ],
@@ -69,11 +72,12 @@ class _edit_profileState extends State<edit_profile> {
       ),
     );
   }
-  Future createUser({required String Name , required String mobileNo}) async{
+  Future createUser({required String Name , required String mobileNo, required String Age}) async{
     final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);
     final json = {
       'name' :Name,
-      'age' : mobileNo
+      'age' : Age,
+      'contact' : mobileNo,
     };
     await docUser.update(
         json
