@@ -7,6 +7,9 @@ import '../widgets/widgets.dart';
 class profile extends StatelessWidget {
   profile({Key? key}) : super(key: key);
   final user = FirebaseAuth.instance.currentUser!;
+  late final userage;
+  late final username;
+  late final usernumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +46,9 @@ class profile extends StatelessWidget {
                                     return user== null ?
                                     Center(child: Text("No user"),) : builduser(user);
                                   }
+                                  else if(snapshot.hasError){
+                                    return Text(snapshot.hasError as String);
+                                  }
                                   else{
                                     return Center(child: CircularProgressIndicator(),);
                                   }
@@ -60,7 +66,9 @@ class profile extends StatelessWidget {
                       leading: const Icon(Icons.edit),
                       title: const Text('Edit Profile'),
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> edit_profile()));
+                        if(userage != null)
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                              edit_profile(age:userage,phoneNo: usernumber,name: username,)));
                       },
                     ),
                     ListTile(
@@ -73,8 +81,7 @@ class profile extends StatelessWidget {
                   ],
                 ),
         ),
-
-        drawer: const Navbar(),
+        drawer: Navbar(),
     );
   }
   Widget builduser(User user)=> Column(
@@ -89,6 +96,9 @@ class profile extends StatelessWidget {
     final docUser = FirebaseFirestore.instance.collection("users").doc(user.uid);
     final snapshop = await docUser.get();
     if(snapshop.exists){
+      userage = User.fromJson(snapshop.data()!).age;
+      username = User.fromJson(snapshop.data()!).name;
+      usernumber = User.fromJson(snapshop.data()!).contact;
       return User.fromJson(snapshop.data()!);
     }
   }

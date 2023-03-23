@@ -1,20 +1,23 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../screens/screens.dart';
 
-
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
-
   @override
   _NavbarState createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
   final user = FirebaseAuth.instance.currentUser!;
-
+  var username = "";
+  @override
+  void initState() {
+    readUser();
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,7 +27,7 @@ class _NavbarState extends State<Navbar> {
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage("lib/assets/user1.png"),
               ),
-              accountName:  Text(user.email!,style:TextStyle(color: Colors.black) ,),
+              accountName:  Text(username,style:TextStyle(color: Colors.black) ,),
               accountEmail:  Text(user.email!,style: TextStyle(fontSize: 10,color: Colors.black45),),
             ),
             ListTile(
@@ -67,6 +70,35 @@ class _NavbarState extends State<Navbar> {
         )
     );
   }
+  readUser() async{
+    final docUser = FirebaseFirestore.instance.collection("users").doc(user.uid);
+    final snapshop = await docUser.get();
+    if(snapshop.exists){
+      setState(() {
+        username = User.fromJson(snapshop.data()!).name;
+      });
+      // return User.fromJson(snapshop.data()!);
+    }
+  }
+
+}
+class User{
+  String id;
+  final String name;
+  final String age;
+  final String contact;
+  User({
+    this.id = '',
+    required this.name,
+    required this.age,
+    required this.contact
+  });
+
+  static User fromJson(Map<String , dynamic > json) =>User(
+    age : json['age'],
+    contact: json['contact'],
+    name: json['name'],
+  );
 }
 
 

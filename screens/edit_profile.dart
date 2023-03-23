@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'screens.dart';
 
 class edit_profile extends StatefulWidget {
-  const edit_profile({Key? key}) : super(key: key);
+  const edit_profile({Key? key,required this.name, required this.phoneNo, required this.age}) : super(key: key);
+  final String name;
+  final phoneNo;
+  final age;
   @override
   State<edit_profile> createState() => _edit_profileState();
 }
@@ -15,6 +18,7 @@ class _edit_profileState extends State<edit_profile> {
   final email = TextEditingController();
   final age = TextEditingController();
   final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +41,8 @@ class _edit_profileState extends State<edit_profile> {
                     ),
               ),
               TextField(
-
                 controller: name,
+                keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: 'Enter Name',
@@ -46,6 +50,7 @@ class _edit_profileState extends State<edit_profile> {
               ),
               TextField(
                 controller: phoneNo,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: 'Enter Phone No',
@@ -53,6 +58,7 @@ class _edit_profileState extends State<edit_profile> {
               ),
               TextField(
                 controller: age,
+                keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: 'Enter Age',
