@@ -3,106 +3,103 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens/screens.dart';
 import '../widgets/widgets.dart';
+class profile extends StatefulWidget {
+  const profile({Key? key}) : super(key: key);
 
-class profile extends StatelessWidget {
-  profile({Key? key}) : super(key: key);
+  @override
+  State<profile> createState() => _profileState();
+}
+class _profileState extends State<profile> {
   final user = FirebaseAuth.instance.currentUser!;
-  late final userage;
-  late final username;
-  late final usernumber;
+  var age = "";
+  var name = "";
+  var phone = "";
+  @override
+  void initState() {
+    readUser();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Profile"),
-        ),
-        body: Center(
-          child: Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Card(
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.height * 0.22,
-                          child: Column(
-                            children: [
-                              const CircleAvatar(
-                                maxRadius: 55,
-                                minRadius: 55,
-                                backgroundImage: AssetImage("lib/assets/user1.png"),
-                              ),
-                              Text(user.email!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                              FutureBuilder<User?>(
-                                future: readUser(),
-                                builder: (context,snapshot){
-                                  if(snapshot.hasData){
-                                    final user = snapshot.data;
-                                    return user== null ?
-                                    Center(child: Text("No user"),) : builduser(user);
-                                  }
-                                  else if(snapshot.hasError){
-                                    return Text(snapshot.hasError as String);
-                                  }
-                                  else{
-                                    return Center(child: CircularProgressIndicator(),);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Profile"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Column(
+                    children: [
+                      const CircleAvatar(
+                        maxRadius: 55,
+                        minRadius: 55,
+                        backgroundImage: AssetImage("lib/assets/user1.png"),
                       ),
-                    ),
-                    SizedBox(
-                      height:  MediaQuery.of(context).size.width * 0.08,
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.edit),
-                      title: const Text('Edit Profile'),
-                      onTap: () {
-                        if(userage != null)
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                              edit_profile(age:userage,phoneNo: usernumber,name: username,)));
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.privacy_tip),
-                      title: const Text('Privacy'),
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
-                      },
-                    ),
-                  ],
+                      Text(user.email!,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      Text(name),
+                      Text(age),
+                      Text(phone),
+                    ],
+                  ),
                 ),
+              ),
+            ),
+            SizedBox(
+              height:  MediaQuery.of(context).size.width * 0.08,
+            ),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Edit Profile'),
+              onTap: () {
+                // if(userage != null)
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>
+                        edit_profile()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: const Text('Privacy'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> privacy()));
+              },
+            ),
+          ],
         ),
-        drawer: Navbar(),
+      ),
+      drawer: Navbar(),
     );
   }
-  Widget builduser(User user)=> Column(
-     children: [
-       Text('${user.name}'),
-       Text('${user.contact}')
-     ],
-   );
-
-
-  Future<User?> readUser() async{
+  readUser() async{
     final docUser = FirebaseFirestore.instance.collection("users").doc(user.uid);
     final snapshop = await docUser.get();
     if(snapshop.exists){
-      userage = User.fromJson(snapshop.data()!).age;
-      username = User.fromJson(snapshop.data()!).name;
-      usernumber = User.fromJson(snapshop.data()!).contact;
+      setState(() {
+        age = User.fromJson(snapshop.data()!).age;
+        name = User.fromJson(snapshop.data()!).name;
+        phone = User.fromJson(snapshop.data()!).contact;
+      });
+
       return User.fromJson(snapshop.data()!);
     }
   }
+
 }
+
+
+
+
+
 
 class User{
   String id;

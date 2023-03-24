@@ -46,7 +46,7 @@ class _signupState extends State<signup> {
                       hintText: 'Enter Your Password'),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value)=>
-                  value != null &&  value.length < 6  ? 'Enter main 6 characters' : null,
+                  value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
 
                 ),
                 ElevatedButton(

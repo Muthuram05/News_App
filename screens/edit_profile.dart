@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'screens.dart';
 
 class edit_profile extends StatefulWidget {
-  const edit_profile({Key? key,required this.name, required this.phoneNo, required this.age}) : super(key: key);
-  final String name;
-  final phoneNo;
-  final age;
+  const edit_profile({Key? key}) : super(key: key);
+
   @override
   State<edit_profile> createState() => _edit_profileState();
 }
@@ -18,7 +16,7 @@ class _edit_profileState extends State<edit_profile> {
   final email = TextEditingController();
   final age = TextEditingController();
   final user = FirebaseAuth.instance.currentUser!;
-
+  final profileKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,53 +28,67 @@ class _edit_profileState extends State<edit_profile> {
         padding: const EdgeInsets.only(
             top:8.0,bottom: 8.0,left: 20.0,right: 20.0
         ),
-        child: Column(
-            children: [
-              TextField(
-               readOnly: true,
-                controller: email,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: user.email!
-                    ),
-              ),
-              TextField(
-                controller: name,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Enter Name',
-                    hintText: 'Enter Your Name'),
-              ),
-              TextField(
-                controller: phoneNo,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Enter Phone No',
-                    hintText: 'Enter Your Number'),
-              ),
-              TextField(
-                controller: age,
-                keyboardType: TextInputType.datetime,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Enter Age',
-                    hintText: 'Enter Your Age'),
-              ),
-              ElevatedButton(
-                  onPressed: (){
-                     final Name = name.text;
-                     final PhoneNo = phoneNo.text;
-                     final Age = age.text;
-                     createUser(Name:Name,mobileNo: PhoneNo,Age :Age);
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=> profile()));
-                  },
-                  child: Text("Submit"))
-            ],
+        child: Form(
+          key : profileKey,
+          child: Column(
+              children: [
+                TextFormField(
+                 readOnly: true,
+                  controller: email,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: user.email!
+                      ),
+                ),
+                TextFormField(
+                  controller: name,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: 'Enter Name',
+                      hintText: 'Enter Your Name'),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)=>
+                  value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
+                ),
+                TextFormField(
+                  controller: phoneNo,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: 'Enter Phone No',
+                      hintText: 'Enter Your Number'),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)=>
+                  value != null &&  value.length < 10  ? 'Enter Valid Number' : null,
+                ),
+                TextFormField(
+                  controller: age,
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: 'Enter Age',
+                      hintText: 'Enter Your Age'),
+                ),
+                ElevatedButton(
+                    onPressed: (){
+                       edit();
+                    },
+                    child: Text("Submit"))
+              ],
+          ),
         ),
       ),
     );
+  }
+  edit(){
+    final isValid = profileKey.currentState!.validate();
+    if(!isValid) return;
+    final Name = name.text;
+    final PhoneNo = phoneNo.text;
+    final Age = age.text;
+    createUser(Name:Name,mobileNo: PhoneNo,Age :Age);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> profile()));
   }
   Future createUser({required String Name , required String mobileNo, required String Age}) async{
     final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid!);

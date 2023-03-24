@@ -80,8 +80,8 @@ class _NavbarState extends State<Navbar> {
       // return User.fromJson(snapshop.data()!);
     }
   }
-
 }
+
 class User{
   String id;
   final String name;
