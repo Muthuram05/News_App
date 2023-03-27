@@ -13,6 +13,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   final user = FirebaseAuth.instance.currentUser!;
+  var Profile = "https://firebasestorage.googleapis.com/v0/b/newsapp-49d4e.appspot.com/o/file%2F200w.gif?alt=media&token=b1495033-0815-446e-9c33-f4a34bf27922";
   var username = "";
   @override
   void initState() {
@@ -24,10 +25,10 @@ class _NavbarState extends State<Navbar> {
         child:ListView(
           children: [
              UserAccountsDrawerHeader(
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage("lib/assets/user1.png"),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(Profile),
               ),
-              accountName:  Text(username,style:TextStyle(color: Colors.black) ,),
+              accountName:  Text(username,style: TextStyle(fontSize: 12,color: Colors.black),),
               accountEmail:  Text(user.email!,style: TextStyle(fontSize: 10,color: Colors.black45),),
             ),
             ListTile(
@@ -75,6 +76,7 @@ class _NavbarState extends State<Navbar> {
     final snapshop = await docUser.get();
     if(snapshop.exists){
       setState(() {
+        Profile = User.fromJson(snapshop.data()!).profile;
         username = User.fromJson(snapshop.data()!).name;
       });
       // return User.fromJson(snapshop.data()!);
@@ -87,17 +89,20 @@ class User{
   final String name;
   final String age;
   final String contact;
+  final String profile;
   User({
     this.id = '',
     required this.name,
     required this.age,
-    required this.contact
+    required this.contact,
+    required this.profile
   });
 
   static User fromJson(Map<String , dynamic > json) =>User(
     age : json['age'],
     contact: json['contact'],
     name: json['name'],
+    profile : json['profile']
   );
 }
 
