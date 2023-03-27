@@ -3,11 +3,7 @@ import 'package:news_app/main.dart';
 import 'package:news_app/screens/bookmark.dart';
 import 'package:share/share.dart';
 
-
-
-
 class details extends StatelessWidget {
-
   const details({
     Key? key,
     required this.image,
@@ -30,8 +26,7 @@ class details extends StatelessWidget {
               },
               child: Icon(Icons.keyboard_arrow_left)),),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
+          child: Column(
               children: [
                 Card(
                   child: Padding(
@@ -73,7 +68,7 @@ class details extends StatelessWidget {
                         ),
                          Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 200,
                               child: TextField(
 
@@ -93,7 +88,17 @@ class details extends StatelessWidget {
                             CircleAvatar(
                               backgroundImage: AssetImage("lib/assets/ram.jpg"),
                             ),
-                            Text("Yes, Thanks")
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("@muthuram@gmail.com",style: TextStyle(color: Colors.black45),),
+                                Text("Yes, Thanks")
+                              ],
+                            )
+
                           ],
                         )
                       ],
@@ -103,7 +108,7 @@ class details extends StatelessWidget {
               ],
             ),
           ),
-        ),
+
 
     );
   }

@@ -2,84 +2,88 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/screens/categorises.dart';
-import '../widgets/widgets.dart';
-class MainCarousel extends StatefulWidget {
+
+
+class Carosol extends StatefulWidget {
+  const Carosol({Key? key}) : super(key: key);
+
   @override
-  _MainCarouselState createState() => _MainCarouselState();
+  State<Carosol> createState() => _CarosolState();
 }
 
-class _MainCarouselState extends State<MainCarousel> {
-  final String imagePath = 'assets/images/';
-
-  final CarouselController _controller = CarouselController();
-
-  List _isHovering = [false, false, false, false, false, false, false];
-  List _isSelected = [true, false, false, false, false, false, false];
-
-  int _current = 0;
-
-  final List<String> images = [
-    'lib/assets/sports.jpg',
-    'lib/assets/politics2.jpg',
-    'lib/assets/weather.jpg',
-    'lib/assets/inter.jpg',
-    'lib/assets/stock.jpg',
-    'lib/assets/hot.jpg',
+class _CarosolState extends State<Carosol> {
+  List imageList=[
+    {"id" : 1,"image_path" : 'lib/assets/sports.jpg'},
+    {"id" : 2,"image_path" :'lib/assets/politics2.jpg'},
+    {"id" : 3 ,"image_path" : 'lib/assets/weather.jpg',},
+    {"id" : 4 ,"image_path" :'lib/assets/inter.jpg',},
+    {"id" : 5 ,"image_path" : 'lib/assets/stock.jpg',},
+    {"id" : 6 ,"image_path" :'lib/assets/hot.jpg',}
   ];
-
-
-
-  List<Widget> generateImageTiles(screenSize) {
-    return images
-        .map(
-          (element) => ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image.asset(
-          element,
-          fit: BoxFit.cover,
-        ),
-      ),
-    )
-        .toList();
-  }
-
+  final CarouselController carouselController = CarouselController();
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var imageSliders = generateImageTiles(screenSize);
-
     return Stack(
       children: [
         InkWell(
-          onTap:(){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                  categorises()));
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context)=> const categorises()
+            ));
           },
           child: CarouselSlider(
-            items: imageSliders,
+            items: imageList.map(
+                  (item) => Image.asset(
+                item['image_path'],
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ).toList(),
+            carouselController: carouselController,
             options: CarouselOptions(
-                enlargeCenterPage: true,
-                aspectRatio: 18 / 8,
+                scrollPhysics: BouncingScrollPhysics(),
                 autoPlay: true,
-                onPageChanged: (index, reason) {
+                aspectRatio: 2,
+                viewportFraction: 1,
+                onPageChanged: (index,reason){
                   setState(() {
-                    _current = index;
-                    for (int i = 0; i < imageSliders.length; i++) {
-
-                      if (i == index) {
-                        _isSelected[i] = true;
-                      } else {
-                        _isSelected[i] = false;
-                      }
-                    }
-
+                    currentIndex = index;
                   });
-                }),
-            carouselController: _controller,
+                }
+            ),
+
           ),
         ),
-
+        Positioned(
+          bottom: 10,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:
+            imageList.asMap().entries.map((e) {
+              return GestureDetector(
+                onTap: () => carouselController.animateToPage(e.key),
+                child: Container(
+                  width: currentIndex == e.key ? 17 : 7,
+                  height: 7.0,
+                  margin: EdgeInsets.symmetric(horizontal: 3.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: currentIndex == e.key ? Colors.blue : Colors.white
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        )
       ],
     );
   }
 }
+
+
+
+
+

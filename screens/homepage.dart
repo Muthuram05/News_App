@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'screens.dart';
 import '../widgets/widgets.dart';
@@ -11,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +25,14 @@ class _MyHomePageState extends State<MyHomePage> {
             child:Navbar()
         ),
         body: Column(
-
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * .02,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * .2,
-              color: Colors.white,
-              child: MainCarousel(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Carosol(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0,bottom: 4.0),
