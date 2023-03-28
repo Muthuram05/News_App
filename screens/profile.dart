@@ -58,7 +58,7 @@ class _profileState extends State<profile> {
                       ),
                       if(name == "" && age == "" && phone == "")
                         CircularProgressIndicator(color: Colors.blue,),
-                      Text(name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      Text(name.toUpperCase(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                       Text(user.email!),
                       Text(age),
                       Text(phone),

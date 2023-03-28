@@ -17,7 +17,7 @@ class bookmark extends StatelessWidget {
           InkWell(
             onTap:(){
               Navigator.push(context, MaterialPageRoute(
-                builder: (context)=> const details(
+                builder: (context)=>  details(
                   id: null,
                     image:"lib/assets/sports.jpg" ,
                     heading: "Missile Attack in Tirunelveli",
@@ -36,7 +36,7 @@ class bookmark extends StatelessWidget {
           InkWell(
             onTap:(){
               Navigator.push(context, MaterialPageRoute(
-                builder: (context)=> const details(
+                builder: (context)=>  details(
                   id: null,
                     image:"lib/assets/politics.jpg" ,
                     heading: "Missile Attack in tamil Nadu",
@@ -55,7 +55,7 @@ class bookmark extends StatelessWidget {
           InkWell(
             onTap:(){
               Navigator.push(context, MaterialPageRoute(
-                builder: (context)=> const details(
+                builder: (context)=>  details(
                   id: null,
                     image:"lib/assets/two.jpg" ,
                     heading: "Missile Attack in Uvari",

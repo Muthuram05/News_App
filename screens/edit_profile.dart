@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dob_input_field/dob_input_field.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,53 +33,55 @@ class _edit_profileState extends State<edit_profile> {
         ),
         child: Form(
           key : profileKey,
-          child: Column(
-              children: [
-                TextFormField(
-                 readOnly: true,
-                  controller: email,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: user.email!
-                      ),
-                ),
-                TextFormField(
-                  controller: name,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Enter Name',
-                      hintText: 'Enter Your Name'),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value)=>
-                  value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
-                ),
-                TextFormField(
-                  controller: phoneNo,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Enter Phone No',
-                      hintText: 'Enter Your Number'),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value)=>
-                  value != null &&  value.length < 10  ? 'Enter Valid Number' : null,
-                ),
-                TextFormField(
-                  controller: age,
-                  keyboardType: TextInputType.datetime,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: 'Enter Age',
-                      hintText: 'Enter Your Age'),
-                ),
-                ElevatedButton(
-                    onPressed: (){
-                       edit();
-                    },
-                    child: Text("Submit")
-                )
-              ],
+          child: SingleChildScrollView(
+            child: Column(
+                children: [
+                  TextFormField(
+                   readOnly: true,
+                    controller: email,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: user.email!
+                        ),
+                  ),
+                  TextFormField(
+                    controller: name,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Enter Name',
+                        hintText: 'Enter Your Name'),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value)=>
+                    value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
+                  ),
+                  TextFormField(
+                    controller: phoneNo,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Enter Phone No',
+                        hintText: 'Enter Your Number'),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value)=>
+                    value != null &&  value.length < 10  ? 'Enter Valid Number' : null,
+                  ),
+                  TextFormField(
+                    controller: age,
+                    keyboardType: TextInputType.datetime,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Enter DOB',
+                        hintText: 'Enter Your Date of Birth'),
+                  ),
+                  ElevatedButton(
+                      onPressed: (){
+                         edit();
+                      },
+                      child: Text("Submit")
+                  )
+                ],
+            ),
           ),
         ),
       ),

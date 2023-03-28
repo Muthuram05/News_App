@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
             InkWell(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=> const details(
+                  builder: (context)=> details(
                       id: 1,
                       image:"lib/assets/one.jpg" ,
                       heading: "Missile Attack in Tirunelveli",
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             InkWell(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=> const details(
+                  builder: (context)=> details(
                     id: 2,
                       image:"lib/assets/two.jpg" ,
                       heading: "Missile Attack in Uvari",
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
             InkWell(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=> const details(
+                  builder: (context)=> details(
                       id: 3,
                       image:"lib/assets/three.jpg" ,
                       heading: "Missile Attack in tamil Nadu",

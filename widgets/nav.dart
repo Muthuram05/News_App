@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,7 @@ class _NavbarState extends State<Navbar> {
   void initState() {
     readUser();
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,7 +28,7 @@ class _NavbarState extends State<Navbar> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(Profile),
               ),
-              accountName:  Text(username,style: TextStyle(fontSize: 12,color: Colors.black),),
+              accountName:  Text(username.toUpperCase(),style: TextStyle(fontSize: 12,color: Colors.black),),
               accountEmail:  Text(user.email!,style: TextStyle(fontSize: 10,color: Colors.black45),),
             ),
             ListTile(

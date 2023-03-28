@@ -74,19 +74,31 @@ class stock extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-        ListItem(
-          content: "Contrary to popular belief, Lorem Ipsum is not simply random text",
-          image: "lib/assets/stock.jpg",
-          heading: "Where does it come from?",
-          date: "15/06/22",
-          place: "Coimbatore",
+        InkWell(
+          onTap:(){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                details(id:"S1",image: "lib/assets/stock.jpg", heading: "There are many variations of Lorem Ipsum available,but the random", content:  "There are many variations of Lorem Ipsum available,but the random,Lorem Ipsum is not simply random text",)));
+          },
+          child: const ListItem(
+            content: "Contrary to popular belief, Lorem Ipsum is not simply random text",
+            image: "lib/assets/stock.jpg",
+            heading: "Where does it come from?",
+            date: "15/06/22",
+            place: "Coimbatore",
+          ),
         ),
-        ListItem(
+        InkWell(
+        onTap:(){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>
+        details(id:"S2",image: "lib/assets/stock2.jpg", heading: "There are many variations of Lorem Ipsum available,but the random", content:  "There are many variations of Lorem Ipsum available,but the random,Lorem Ipsum is not simply random text",)));
+        },
+        child: const ListItem(
           content: "But I must explain to you how all this idea of denouncing",
           image: "lib/assets/stock2.jpg",
           heading: "1914 translation by Rackham",
           date: "18/06/22",
           place: "Dindigul",
+        ),
         ),
         ListItem(
           content: "At vero eos accusamus eiusto odio dignissimos ducimus",
