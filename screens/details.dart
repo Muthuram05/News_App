@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/test.dart';
 import 'package:share/share.dart';
+import 'package:flutter/gestures.dart';
 
 class details extends StatelessWidget {
   details({
@@ -42,10 +42,10 @@ class details extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:8.0),
-                            child: Text(content),
+                            child: Text(heading),
                           ),
                           const Divider(thickness: 2,),
-                          Text(heading),
+                          Text(content),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -74,14 +74,17 @@ class details extends StatelessWidget {
                                 SizedBox(
                                   width: 200,
                                   child: TextFormField(
+                                    textInputAction: TextInputAction.done,
                                     controller: controller,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     validator: (value)=>
-                                    value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
+                                    value != null &&  value.length < 1 ? 'Enter Comment' : null,
                                   ),
                                 ),
                                 ElevatedButton(
-                                    onPressed: comment,
+                                    onPressed: (){
+                                      FocusScope.of(context).unfocus();
+                                      comment();
+                                    },
                                     child: const Text("Comment"))
                               ],
                           ),

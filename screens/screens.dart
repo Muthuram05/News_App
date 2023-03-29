@@ -8,4 +8,5 @@ export 'homepage.dart';
 export 'auth_page.dart';
 export 'privacy.dart';
 export 'edit_profile.dart';
+export 'forgotPassword.dart';
 

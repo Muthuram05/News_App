@@ -56,6 +56,7 @@ class _profileState extends State<profile> {
                           backgroundImage:NetworkImage(profile),
                         ),
                       ),
+                      SizedBox(height: 10 ,),
                       if(name == "" && age == "" && phone == "")
                         CircularProgressIndicator(color: Colors.blue,),
                       Text(name.toUpperCase(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),

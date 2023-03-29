@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:news_app/screens/profile.dart';
 
 import '../main.dart';
 
@@ -28,40 +27,69 @@ class _signupState extends State<signup> {
         child: Form(
           key : formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height:  MediaQuery.of(context).size.height * .2,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(Icons.account_circle,size: 30,color: Colors.deepPurple,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .6 ,
+                      child: TextFormField(
+                        cursorColor: Colors.deepPurple,
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                            hintText: 'Enter Your Email',
+                          border: InputBorder.none,
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (email)=>
+                        email != null && !EmailValidator.validate(email) ? 'Enter a valid email' : null,
+                      ),
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                      labelText: 'Enter Email',
-                      hintText: 'Enter Your Email'),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email)=>
-                  email != null && !EmailValidator.validate(email) ? 'Enter a valid email' : null,
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                      labelText: 'Enter Password',
-                      hintText: 'Enter Your Password'),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value)=>
-                  value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(Icons.lock,size: 30,color: Colors.deepPurple,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .6 ,
+                      child: TextFormField(
+                        obscureText: true,
+                        cursorColor: Colors.deepPurple,
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                            hintText: 'Enter Your Password',
+                          border: InputBorder.none
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value)=>
+                        value != null &&  value.length < 6  ? 'Enter min 6 characters' : null,
 
+                      ),
+                    ),
+                  ],
                 ),
+                Divider(),
                 ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurple),
+                  ),
                   onPressed: signUp,child: Text("Sign Up"),
                 ),
                 RichText(text: TextSpan(
                     text: 'Already Have an account ? ',
-                    style: TextStyle(color: Colors.red,fontSize: 18),
+                    style: TextStyle(color: Colors.black,fontSize: 18),
                     children: [
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignIn,
                         text: 'Sign In',
+                          style: const TextStyle(
+                            decoration: TextDecoration.underline,
+                          )
                       )
                     ]
                 ),
@@ -74,6 +102,7 @@ class _signupState extends State<signup> {
     );
   }
   Future signUp() async {
+    FocusScope.of(context).unfocus();
     final isValid = formKey.currentState!.validate();
     if(!isValid) return;
     showDialog(context: context,
