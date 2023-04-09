@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/model/storage_service.dart';
 import '../screens/screens.dart';
 import '../widgets/widgets.dart';
+
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
   @override

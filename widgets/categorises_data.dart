@@ -124,7 +124,7 @@ class sports extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       children: [
         ListItem(
           content: "Contrary to popular belief, Lorem Ipsum is not simply random text",
@@ -164,7 +164,7 @@ class politics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       children: [
         ListItem(
           content: "Contrary to popular belief, Lorem Ipsum is not simply random text",
@@ -204,7 +204,7 @@ class hot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         ListItem(
           content: "Contrary to popular belief, Lorem Ipsum is not simply random text",
@@ -244,7 +244,7 @@ class weather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       children: [
         ListItem(
           content: "Contrary to popular belief, Lorem Ipsum is not simply random text",

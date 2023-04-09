@@ -10,11 +10,11 @@ class privacy extends StatelessWidget {
         centerTitle: true,
         title: Text("Privacy"),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
-            children: [
+            children: const [
               Center(child: Text("Privacy Policy",style: TextStyle(fontSize: 20,color: Colors.red,fontWeight: FontWeight.bold),)),
               Center(child: Text("Last updated: March 15, 2023",style: TextStyle(fontSize: 10),),),
               Text("Collecting and Using Your Personal Data "),
